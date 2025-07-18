@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Precios JJ Chismes</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            font-family: 'Courier New', monospace;
+        }
+
+        .box {
+            position: relative;
+            width: 300px;
+            height: 400px;
+            background-color: transparent;
+            padding: 20px;
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .box::before, .box::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: linear-gradient(45deg, 
+                transparent, transparent, white, transparent, transparent);
+            background-size: 400%;
+            z-index: -1;
+            animation: borderEffect 8s linear infinite;
+        }
+
+        .box::after {
+            filter: blur(2px);
+        }
+
+        @keyframes borderEffect {
+            0% {
+                background-position: 0 0;
+            }
+            50% {
+                background-position: 300% 0;
+            }
+            100% {
+                background-position: 0 0;
+            }
+        }
+
+        .content {
+            position: relative;
+            z-index: 3;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+            animation: textGlow 2s ease-in-out infinite alternate;
+        }
+
+        p {
+            font-size: 18px;
+            margin: 15px 0;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+
+        .price-item {
+            position: relative;
+            margin: 20px 0;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .price-item:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .price-item:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes textGlow {
+            from {
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+            }
+            to {
+                text-shadow: 0 0 20px white, 0 0 30px white;
+            }
+        }
+
+        /* Particle animations */
+        .particle {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        @keyframes particleMove {
+            0% {
+                transform: translate(0, 0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty));
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="content">
+            <h1>PRECIOS PARA JJ CHISMES</h1>
+            <div class="price-item">
+                <p>LINK DE LA PAGINA: C$20</p>
+            </div>
+            <div class="price-item">
+                <p>ACCESO ADMIN: C$40</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const colors = ['rgba(255,255,255,0.7)', 'rgba(255,255,255,0.5)', 'rgba(255,255,255,0.3)'];
+            
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 5 + 1;
+                const startX = Math.random() * window.innerWidth;
+                const startY = Math.random() * window.innerHeight;
+                const duration = Math.random() * 5 + 5;
+                const delay = Math.random() * 5;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${startX}px`;
+                particle.style.top = `${startY}px`;
+                particle.style.backgroundColor = color;
+                
+                // Animation properties
+                const tx = (Math.random() - 0.5) * 200;
+                const ty = (Math.random() - 0.5) * 200;
+                particle.style.setProperty('--tx', `${tx}px`);
+                particle.style.setProperty('--ty', `${ty}px`);
+                
+                particle.style.animation = `particleMove ${duration}s linear ${delay}s infinite`;
+                
+                document.body.appendChild(particle);
+            }
+        }
+
+        // Create particles on load
+        window.addEventListener('load', createParticles);
+        
+        // Update particles on resize
+        window.addEventListener('resize', () => {
+            document.querySelectorAll('.particle').forEach(p => p.remove());
+            createParticles();
+        });
+    </script>
+</body>
+</html>
+
