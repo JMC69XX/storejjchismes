@@ -112,6 +112,25 @@
             }
         }
 
+        .notice {
+            position: absolute;
+            bottom: 20px;
+            font-size: 12px;
+            color: rgba(255,255,255,0.6);
+            text-align: center;
+            width: 100%;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 2px rgba(255,255,255,0.3);
+            }
+            to {
+                text-shadow: 0 0 5px rgba(255,255,255,0.7);
+            }
+        }
+
         /* Particle animations */
         .particle {
             position: absolute;
@@ -144,6 +163,8 @@
             </div>
         </div>
     </div>
+
+    <div class="notice">SIN DEVOLUCIONES - ESTÁN AVISADOS</div>
 
     <script>
         // Create floating particles
@@ -191,4 +212,3 @@
     </script>
 </body>
 </html>
-
